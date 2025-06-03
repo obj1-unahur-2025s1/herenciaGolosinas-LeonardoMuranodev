@@ -1,6 +1,4 @@
-/*
- * Los sabores
- */
+//sabores
 object frutilla { }
 object chocolate { }
 object vainilla { }

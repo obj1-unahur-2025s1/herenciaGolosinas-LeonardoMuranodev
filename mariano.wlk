@@ -4,6 +4,27 @@ object mariano {
 	const golosinas = []
 	 
 	method comprar(_golosina) { golosinas.add(_golosina) }
+
+	method comprarVarias(_listaGolosina) {
+		if (_listaGolosina.any({golo =>golosinas.cotains(golo)})) {
+			self.error("Las golosinas ingresadas no deben estar en posesion de mariano")
+		}
+
+		if (_listaGolosina.any({golo =>_listaGolosina.ocurrencesOf(golo) > 1}))
+		golosinas.addAll(_listaGolosina)
+	}
+
+	method baniar(_golosina) {
+		if (_golosina.kindname() == "a GolosinaBaniada") {
+			self.error("Debe ser una Golosina no bañada")
+		}
+		
+		const nuevaGolosina = new GolosinaBaniada(golosinaInterior=__golosina)
+		self.comprar(nuevaGolosina)
+		if (golosinas.contains(_golosina)) {
+			self.desechar(_golosina)
+		}
+	}
 	
 	method desechar (_golosina) { golosinas.remove(_golosina) }
 	
@@ -31,8 +52,6 @@ object mariano {
 		return golosinas.all({ _golosina => _golosina.precio() < 10}) 
 	}
 	
-	
-	
 	method golosinaDeSabor(_sabor) {
 		return golosinas.find({ golosina => golosina.sabor() == _sabor })
 	}
@@ -44,8 +63,6 @@ object mariano {
 	method sabores() {
 		return golosinas.map({ golosina => golosina.sabor() }).asSet()
 	}
-
-
 
 	method golosinaMasCara() {
 		return golosinas.max( { _golosina => _golosina.precio() } )
