@@ -6,20 +6,22 @@ object mariano {
 	method comprar(_golosina) { golosinas.add(_golosina) }
 
 	method comprarVarias(_listaGolosina) {
-		if (_listaGolosina.any({golo =>golosinas.cotains(golo)})) {
+		if (_listaGolosina.any({golo =>golosinas.contains(golo)})) {
 			self.error("Las golosinas ingresadas no deben estar en posesion de mariano")
 		}
 
-		if (_listaGolosina.any({golo =>_listaGolosina.ocurrencesOf(golo) > 1}))
+		if (_listaGolosina.any({golo =>_listaGolosina.ocurrencesOf(golo) > 1})) {
+			self.error("No debe ingresar mas de una vez una misma golosina")
+		}
 		golosinas.addAll(_listaGolosina)
 	}
 
 	method baniar(_golosina) {
-		if (_golosina.kindname() == "a GolosinaBaniada") {
+		if (_golosina.esBaniada()) {
 			self.error("Debe ser una Golosina no bañada")
 		}
 		
-		const nuevaGolosina = new GolosinaBaniada(golosinaInterior=__golosina)
+		const nuevaGolosina = new GolosinaBaniada(golosinaInterior=_golosina)
 		self.comprar(nuevaGolosina)
 		if (golosinas.contains(_golosina)) {
 			self.desechar(_golosina)
