@@ -35,7 +35,7 @@ class Bombon {
 // ^
 // |
 class BombonDuro inherits Bombon {
-	method dureza() = if (peso > 12) 3 else if(peso < 12 and peso > 8) 2 else 1
+	method dureza() = if (peso > 12) 3 else if(peso <= 12 and peso > 8) 2 else 1
 
 	override method mordisco() {
 		peso = 0.max(peso - 1)
@@ -136,10 +136,10 @@ class ObleaCrujiente inherits Oblea {
 
 	override method mordisco() {
 		super()
+		self.darMordisco()
 		if (not self.estaDebil()) {
 			peso = 0.max(peso - 3)
 		}
-		self.darMordisco()
 	}
 }
 
@@ -163,6 +163,7 @@ class Chocolatin {
 	method sabor() { return chocolate }
 	method libreGluten() { return false }
 	method esBaniada() = false
+	method comido() = comido
 
 	method mordisco() { comido = comido + 2 }
 }
@@ -183,10 +184,11 @@ class ChocolatinVip inherits Chocolatin {
 
 class ChocolatinPremium inherits ChocolatinVip {
 	override method humedad() = super() * 0.5
+	
 }
 
 class GolosinaBaniada {
-	var golosinaInterior
+	var property golosinaInterior
 	var pesoBanio = 4
 	
 	//Metodos de consulta
@@ -197,7 +199,7 @@ class GolosinaBaniada {
 	method libreGluten() { return golosinaInterior.libreGluten() }	
 
 	//Metodos de indicacion
-	method golosinaInterior(unaGolosina) { golosinaInterior = unaGolosina }
+	
 	method mordisco() {
 		golosinaInterior.mordisco()
 		pesoBanio = (pesoBanio - 2).max(0) 

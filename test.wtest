@@ -1,10 +1,78 @@
 import golosinas.*
 import mariano.*
 
-describe "group of tests" {
+describe "Test de las clases nuevas - herencia" {
 
-  test "test 1" {
-    assert.equals(100, 50+50)
+  const bb = new Bombon()
+  const bd = new BombonDuro()
+  const carameloLimon = new Caramelo(sabor=limon)
+  const carameloRellenoFrutilla = new CarameloRelleno(sabor=frutilla)
+  const obCrujiente = new ObleaCrujiente()
+  const choVIP = new ChocolatinVip(humedad=0.3, pesoInicial=100)
+  const choPremium = new ChocolatinPremium(humedad=0.4, pesoInicial=100)
+
+  method initialize() {
+    mariano.comprarVarias([bd, carameloLimon, carameloRellenoFrutilla, obCrujiente, choVIP, choPremium ])
+  }
+  
+  test "Si le pego un mordisco a un bombom duro, su peso debe ser 14g y  dureza 3" {
+    bd.mordisco()
+    assert.equals(14, bd.peso())
+    assert.equals(3, bd.dureza())
+  }
+
+  test "Si le pego 3 mordiscos a un bombom duro, su peso debe ser 12g y dureza 2" {
+    bd.mordisco()
+    bd.mordisco()
+    bd.mordisco()
+    assert.equals(12, bd.peso())
+    assert.equals(2, bd.dureza())
+  }
+
+  test "EL metodo sabor() de carameloLimon es retorna el objeto limon" {
+    assert.equals(limon, carameloLimon.sabor())
+  }
+
+  test "Si le pego un mordisco a carameloRellenoFrutilla, pesa 4g y su sabor es chocolate. Su precio aumenta en 1"{
+    carameloRellenoFrutilla.mordisco()
+    assert.equals(4, carameloRellenoFrutilla.peso())
+    assert.equals(chocolate, carameloRellenoFrutilla.sabor())
+    assert.equals(13, carameloRellenoFrutilla.precio())
+  }
+
+  test "Le doy dos mordiscos a obCrujiente, pesa 58gr y no esta debil" {
+    obCrujiente.mordisco()
+    obCrujiente.mordisco()
+    assert.equals(58, obCrujiente.peso())
+    assert.notThat(obCrujiente.estaDebil())
+  }
+
+  test "Le doy 4 mordiscos a obCrujiente, pesa 19.31g  y ahora esta debil" {
+    obCrujiente.mordisco()
+    obCrujiente.mordisco()
+    obCrujiente.mordisco()
+    obCrujiente.mordisco()
+    assert.equals(30.375, obCrujiente.peso())
+    assert.that(obCrujiente.estaDebil())
+  }
+
+  test "Le doy un mordisco al chocolatin VIP, comido es 2, y peso es  127.4g"{
+    choVIP.mordisco()
+    assert.equals(2, choVIP.comido())
+    assert.equals(127.4, choVIP.peso())
+  }
+
+  test "Le doy un mordisco al chocolatin Premium, comido es 2, y peso es  117.6g"{
+    choPremium.mordisco()
+    assert.equals(2, choPremium.comido())
+    assert.equals(117.6, choPremium.peso())
+  }
+
+  test "Mariano baña un bombom nuevo que no tiene, por lo que ahora esta en su posesion"{
+    mariano.baniar(bb)
+    assert.notThat(mariano.golosinas().contains(bb))
+    assert.that(mariano.ultimaGolosina().esBaniada())
+    assert.equals(bb, mariano.ultimaGolosina().golosinaInterior())
   }
 
 }

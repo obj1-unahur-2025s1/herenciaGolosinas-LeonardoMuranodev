@@ -15,7 +15,7 @@ object mariano {
 			self.error("Las golosinas ingresadas no deben estar en posesion de mariano")
 		}
 
-		if (_listaGolosina.any({golo =>_listaGolosina.ocurrencesOf(golo) > 1})) {
+		if (_listaGolosina.any({golo => _listaGolosina.occurrencesOf(golo) > 1})) {
 			self.error("No debe ingresar mas de una vez una misma golosina")
 		}
 		golosinas.addAll(_listaGolosina)
