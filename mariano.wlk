@@ -3,7 +3,12 @@ import golosinas.*
 object mariano {
 	const golosinas = []
 	 
-	method comprar(_golosina) { golosinas.add(_golosina) }
+	method comprar(_golosina) { 
+		if (golosinas.contains(_golosina)){
+			self.error("La golosina ingresada ya se encuentra en posesion de Mariano")
+		}
+		golosinas.add(_golosina) 
+	}
 
 	method comprarVarias(_listaGolosina) {
 		if (_listaGolosina.any({golo =>golosinas.contains(golo)})) {

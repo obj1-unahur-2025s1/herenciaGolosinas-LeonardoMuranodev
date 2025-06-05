@@ -1,9 +1,19 @@
 //sabores
-object frutilla { }
-object chocolate { }
-object vainilla { }
-object naranja { }
-object limon { }
+object frutilla {
+	method esSaborValido() = true
+}
+object chocolate {
+	method esSaborValido() = true
+}
+object vainilla {
+	method esSaborValido() = true
+}
+object naranja {
+	method esSaborValido() = true
+}
+object limon {
+	method esSaborValido() = true
+}
 
 
 /*
@@ -46,6 +56,12 @@ class Alfajor {
 class Caramelo {
 	var property sabor
 	var peso = 5
+
+	method initialize() {
+		if (! sabor.esSaborValido()){
+			self.error("Debes ingresar un valor de sabor valido")
+		}
+	}
 
 	//Metodos de consulta
 	method precio() { return 12 }
@@ -133,6 +149,12 @@ class Chocolatin {
 	// el mordisco afecta al peso actual
 	var pesoInicial
 	var comido = 0
+
+	method initialize() {
+		if(not pesoInicial.between(1,1000)) {
+			self.error("Peso inicial debe ser un numero valido")
+		}
+	}
 	
 	//Metodos de consulta
 	method pesoInicial(unPeso) { pesoInicial = unPeso }
@@ -147,6 +169,12 @@ class Chocolatin {
 
 class ChocolatinVip inherits Chocolatin {
 	const humedad
+
+	method initialize() {
+		if(not humedad.between(0,1)) {
+			self.error("Humedad debe ser un numero valido, entre 0 y 1")
+		}
+	}
 
 	//Metodos de consulta
 	method humedad() = humedad
@@ -181,6 +209,12 @@ class Tuttifrutti {
 	var libreDeGluten
 	const sabores = [frutilla, chocolate, naranja]
 	var saborActual = 0
+
+	method initialize() {
+		if(not libreDeGluten.kindname() == "a Bolean") {
+			self.error("Libre de gluten debe ser un valor booleano")
+		}
+	}
 	
 	//Metodos de consulta
 	method sabor() { return sabores.get(saborActual % 3) }	
